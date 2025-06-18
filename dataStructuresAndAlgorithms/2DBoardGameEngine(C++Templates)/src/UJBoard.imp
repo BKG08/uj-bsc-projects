@@ -1,0 +1,98 @@
+#include "UJBoard.h"
+#include <cstdlib>
+
+// Default constructor
+template <typename T>
+UJBoard<T>::UJBoard() : board(nullptr), rows(0), cols(0) {}
+
+// Parameterized constructor
+template <typename T>
+UJBoard<T>::UJBoard(int r, int c) : rows(r), cols(c) {
+    board = new UJBoardRow<T>*[rows];
+    for (int i = 0; i < rows; i++) {
+        board[i] = new UJBoardRow<T>(cols);
+    }
+}
+
+// Copy constructor
+template <typename T>
+UJBoard<T>::UJBoard(const UJBoard<T>& objBoard) {
+    rows = objBoard.rows;
+    cols = objBoard.cols;
+    board = new UJBoardRow<T>*[rows];
+    for (int i = 0; i < rows; i++) {
+        board[i] = new UJBoardRow<T>(*(objBoard.board[i]));
+    }
+}
+
+// Assignment operator
+template <typename T>
+UJBoard<T>& UJBoard<T>::operator=(const UJBoard<T>& objBoard) {
+    if (this == &objBoard) return *this;
+
+    for (int i = 0; i < rows; i++) {
+        delete board[i];
+    }
+    delete[] board;
+
+    rows = objBoard.rows;
+    cols = objBoard.cols;
+    board = new UJBoardRow<T>*[rows];
+    for (int i = 0; i < rows; i++) {
+        board[i] = new UJBoardRow<T>(*(objBoard.board[i]));
+    }
+
+    return *this;
+}
+
+// Destructor
+template <typename T>
+UJBoard<T>::~UJBoard() {
+    for (int i = 0; i < rows; i++) {
+        delete board[i];
+    }
+    delete[] board;
+}
+
+// Index operator
+template <typename T>
+UJBoardRow<T>& UJBoard<T>::operator[](int index) {
+    return *board[index];
+}
+
+// Swap helper
+template <typename T>
+void UJBoard<T>::Swap(T& a, T& b) {
+    T temp = a;
+    a = b;
+    b = temp;
+}
+
+// Function call operator: random swapping
+template <typename T>
+void UJBoard<T>::operator()(int seed) {
+    std::srand(seed);
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+            int randRow = GenRandNum(0, rows - 1);
+            int randCol = GenRandNum(0, cols - 1);
+            Swap((*board[r])[c], (*board[randRow])[randCol]);
+        }
+    }
+}
+
+// Random number generator
+template <typename T>
+int UJBoard<T>::GenRandNum(int LowerBound, int UpperBound) {
+    int range = UpperBound - LowerBound + 1;
+    return rand() % range + LowerBound;
+}
+
+// Stream insertion operator
+template <typename U>
+std::ostream& operator<<(std::ostream& os, const UJBoard<U>& objRHS) {
+    for (int i = 0; i < objRHS.rows; i++) {
+        os << *(objRHS.board[i]) << std::endl;
+    }
+    return os;
+}

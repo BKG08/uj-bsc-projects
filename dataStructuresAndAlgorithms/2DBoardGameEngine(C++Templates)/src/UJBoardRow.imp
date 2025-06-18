@@ -1,0 +1,56 @@
+#include "UJBoardRow.h"
+
+// Default constructor
+template <typename T>
+UJBoardRow<T>::UJBoardRow() : row(nullptr), Numrows(0) {}
+
+// Parameterized constructor
+template <typename T>
+UJBoardRow<T>::UJBoardRow(int s) : Numrows(s) {
+    row = new T[Numrows];
+}
+
+// Copy constructor
+template <typename T>
+UJBoardRow<T>::UJBoardRow(const UJBoardRow<T>& objRow) {
+    Numrows = objRow.Numrows;
+    row = new T[Numrows];
+    for (int i = 0; i < Numrows; i++) {
+        row[i] = objRow.row[i];
+    }
+}
+
+// Assignment operator
+template <typename T>
+UJBoardRow<T>& UJBoardRow<T>::operator=(const UJBoardRow<T>& objRow) {
+    if (this == &objRow) return *this;
+
+    delete[] row;
+    Numrows = objRow.Numrows;
+    row = new T[Numrows];
+    for (int i = 0; i < Numrows; i++) {
+        row[i] = objRow.row[i];
+    }
+    return *this;
+}
+
+// Destructor
+template <typename T>
+UJBoardRow<T>::~UJBoardRow() {
+    delete[] row;
+}
+
+// Indexing operator
+template <typename T>
+T& UJBoardRow<T>::operator[](int index) {
+    return row[index];
+}
+
+// Stream insertion operator
+template <typename U>
+std::ostream& operator<<(std::ostream& os, const UJBoardRow<U>& objRHS) {
+    for (int i = 0; i < objRHS.Numrows; i++) {
+        os << objRHS.row[i] << " ";
+    }
+    return os;
+}
