@@ -18,7 +18,7 @@ The system allows sending notifications to users via different channels (Email, 
 - Includes a batch file for compiling and running
 - Structured for beginner-friendly practice with Java design patterns.
 
-## How to Compile, Run, and Generate Javadoc
+## How to Compile and Run
 
 ### Using `build.bat` (Recommended)
 
