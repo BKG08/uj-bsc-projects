@@ -1,5 +1,4 @@
-# University Projects – Computer Science and Informatics
-
+## University Projects – Computer Science and Informatics
 This repository contains various assignments and projects completed as part of my BSc in Computer Science and Informatics at the University of Johannesburg.
 
 Projects cover topics such as:
@@ -18,6 +17,5 @@ Projects cover topics such as:
 
 More projects will be added as I progress through my studies.
 
-## 📌 Note
-
+## Note
 All projects are for educational purposes and reflect ongoing learning and development.
