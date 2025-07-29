@@ -25,6 +25,7 @@ UJBoard<T>::UJBoard(const UJBoard<T>& objBoard) {
     }
 }
 
+
 // Assignment operator
 template <typename T>
 UJBoard<T>& UJBoard<T>::operator=(const UJBoard<T>& objBoard) {
