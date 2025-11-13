@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="UniLoop" Class="UniLoopDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\UniLoop.mdf;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="UniLoopConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Buyer" Member="Buyers">
+    <Type Name="Buyer">
+      <Column Name="B_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="B_FavLocation" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Buyer_FavouriteBuyerLocation" Member="FavouriteBuyerLocations" ThisKey="B_ID" OtherKey="FBL_BuyerID" Type="FavouriteBuyerLocation" />
+      <Association Name="Buyer_ShoppingCart" Member="ShoppingCarts" ThisKey="B_ID" OtherKey="SC_Buyer" Type="ShoppingCart" />
+      <Association Name="Buyer_Wishlist" Member="Wishlists" ThisKey="B_ID" OtherKey="W_Buyer" Type="Wishlist" />
+      <Association Name="Buyer_Order" Member="Orders" ThisKey="B_ID" OtherKey="O_Buyer" Type="Order" />
+      <Association Name="Buyer_Review" Member="Reviews" ThisKey="B_ID" OtherKey="RV_Reviewer" Type="Review" />
+      <Association Name="Buyer_Invoice" Member="Invoices" ThisKey="B_ID" OtherKey="INV_BuyerID" Type="Invoice" />
+      <Association Name="StandardUser_Buyer" Member="StandardUser" ThisKey="B_ID" OtherKey="U_ID" Type="StandardUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Seller" Member="Sellers">
+    <Type Name="Seller">
+      <Column Name="S_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="S_Bio" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="S_Campus" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="S_ProfilePic" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="S_RatingAvg" Type="System.Decimal" DbType="Decimal(3,2) NOT NULL" CanBeNull="false" />
+      <Column Name="S_RatingCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Seller_Product" Member="Products" ThisKey="S_ID" OtherKey="P_SellerID" Type="Product" />
+      <Association Name="Seller_OrderItem" Member="OrderItems" ThisKey="S_ID" OtherKey="OI_Seller" Type="OrderItem" />
+      <Association Name="Seller_Review" Member="Reviews" ThisKey="S_ID" OtherKey="RV_Seller" Type="Review" />
+      <Association Name="Seller_SellerPayout" Member="SellerPayouts" ThisKey="S_ID" OtherKey="SP_Seller" Type="SellerPayout" />
+      <Association Name="StandardUser_Seller" Member="StandardUser" ThisKey="S_ID" OtherKey="U_ID" Type="StandardUser" IsForeignKey="true" />
+      <Association Name="UniImage_Seller" Member="UniImage" ThisKey="S_ProfilePic" OtherKey="IMG_ID" Type="UniImage" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StandardUser" Member="StandardUsers">
+    <Type Name="StandardUser">
+      <Column Name="U_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="U_Title" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="U_FName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="U_LName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="U_UniEmail" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="U_Phone" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="U_Password" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="U_Status" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="U_DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="StandardUser_Buyer" Member="Buyer" ThisKey="U_ID" OtherKey="B_ID" Type="Buyer" Cardinality="One" />
+      <Association Name="StandardUser_Seller" Member="Seller" ThisKey="U_ID" OtherKey="S_ID" Type="Seller" Cardinality="One" />
+      <Association Name="StandardUser_Admin" Member="Admin" ThisKey="U_ID" OtherKey="A_ID" Type="Admin" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category">
+      <Column Name="C_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="C_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="C_ParentCategoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Category_Category" Member="Categories" ThisKey="C_ID" OtherKey="C_ParentCategoryID" Type="Category" />
+      <Association Name="Category_Product" Member="Products" ThisKey="C_ID" OtherKey="P_CategoryID" Type="Product" />
+      <Association Name="Category_Category" Member="Category1" ThisKey="C_ParentCategoryID" OtherKey="C_ID" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="P_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="P_SellerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="P_CategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="P_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="P_Description" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="P_QuantityAvailable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="P_BuyerSuggestedPrice" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="P_AdminApprovedPrice" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="P_Image" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="P_Status" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="P_DateCreated" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="P_DateUpdated" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Product_ShoppingCartProduct" Member="ShoppingCartProducts" ThisKey="P_ID" OtherKey="SCP_ProductID" Type="ShoppingCartProduct" />
+      <Association Name="Product_WishlistItem" Member="WishlistItems" ThisKey="P_ID" OtherKey="WI_ID" Type="WishlistItem" />
+      <Association Name="Product_OrderItem" Member="OrderItems" ThisKey="P_ID" OtherKey="OI_ID" Type="OrderItem" />
+      <Association Name="Category_Product" Member="Category" ThisKey="P_CategoryID" OtherKey="C_ID" Type="Category" IsForeignKey="true" />
+      <Association Name="Seller_Product" Member="Seller" ThisKey="P_SellerID" OtherKey="S_ID" Type="Seller" IsForeignKey="true" />
+      <Association Name="UniImage_Product" Member="UniImage" ThisKey="P_Image" OtherKey="IMG_ID" Type="UniImage" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PickUpLocation" Member="PickUpLocations">
+    <Type Name="PickUpLocation">
+      <Column Name="PL_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PL_CampusName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="PL_CampusArea" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="PL_CampusPickUpPoint" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PL_Notes" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="PickUpLocation_FavouriteBuyerLocation" Member="FavouriteBuyerLocations" ThisKey="PL_ID" OtherKey="FBL_PickUpLocationID" Type="FavouriteBuyerLocation" />
+      <Association Name="PickUpLocation_Order" Member="Orders" ThisKey="PL_ID" OtherKey="O_PickUpLocationID" Type="Order" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FavouriteBuyerLocation" Member="FavouriteBuyerLocations">
+    <Type Name="FavouriteBuyerLocation">
+      <Column Name="FBL_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FBL_BuyerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FBL_PickUpLocationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Buyer_FavouriteBuyerLocation" Member="Buyer" ThisKey="FBL_BuyerID" OtherKey="B_ID" Type="Buyer" IsForeignKey="true" />
+      <Association Name="PickUpLocation_FavouriteBuyerLocation" Member="PickUpLocation" ThisKey="FBL_PickUpLocationID" OtherKey="PL_ID" Type="PickUpLocation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShoppingCartProduct" Member="ShoppingCartProducts">
+    <Type Name="ShoppingCartProduct">
+      <Column Name="SCP_CartID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SCP_ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SCP_Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SCP_DateAdded" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="SCP_DateRemoved" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Product_ShoppingCartProduct" Member="Product" ThisKey="SCP_ProductID" OtherKey="P_ID" Type="Product" IsForeignKey="true" />
+      <Association Name="ShoppingCart_ShoppingCartProduct" Member="ShoppingCart" ThisKey="SCP_CartID" OtherKey="SC_ID" Type="ShoppingCart" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShoppingCart" Member="ShoppingCarts">
+    <Type Name="ShoppingCart">
+      <Column Name="SC_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SC_Buyer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SC_DateCreated" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="SC_DateUpdated" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="ShoppingCart_ShoppingCartProduct" Member="ShoppingCartProducts" ThisKey="SC_ID" OtherKey="SCP_CartID" Type="ShoppingCartProduct" />
+      <Association Name="Buyer_ShoppingCart" Member="Buyer" ThisKey="SC_Buyer" OtherKey="B_ID" Type="Buyer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wishlist" Member="Wishlists">
+    <Type Name="Wishlist">
+      <Column Name="W_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="W_Buyer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="W_DateCreated" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Wishlist_WishlistItem" Member="WishlistItems" ThisKey="W_ID" OtherKey="WI_List" Type="WishlistItem" />
+      <Association Name="Buyer_Wishlist" Member="Buyer" ThisKey="W_Buyer" OtherKey="B_ID" Type="Buyer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WishlistItem" Member="WishlistItems">
+    <Type Name="WishlistItem">
+      <Column Name="WI_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WI_List" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WI_DateAdded" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="WI_DateRemoved" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Product_WishlistItem" Member="Product" ThisKey="WI_ID" OtherKey="P_ID" Type="Product" IsForeignKey="true" />
+      <Association Name="Wishlist_WishlistItem" Member="Wishlist" ThisKey="WI_List" OtherKey="W_ID" Type="Wishlist" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order]" Member="Orders">
+    <Type Name="Order">
+      <Column Name="O_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="O_Buyer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="O_PickUpLocationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="O_DeliveryFee" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="O_VAT" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="O_SubTotal" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="O_TotalPrice" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="O_Status" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="O_DatePlaced" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="O_DatePaid" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Order_OrderItem" Member="OrderItems" ThisKey="O_ID" OtherKey="OI_Order" Type="OrderItem" />
+      <Association Name="Order_Payment" Member="Payments" ThisKey="O_ID" OtherKey="PM_Order" Type="Payment" />
+      <Association Name="Order_Refund" Member="Refunds" ThisKey="O_ID" OtherKey="R_OrderID" Type="Refund" />
+      <Association Name="Order_Invoice" Member="Invoices" ThisKey="O_ID" OtherKey="INV_OrderID" Type="Invoice" />
+      <Association Name="Buyer_Order" Member="Buyer" ThisKey="O_Buyer" OtherKey="B_ID" Type="Buyer" IsForeignKey="true" />
+      <Association Name="PickUpLocation_Order" Member="PickUpLocation" ThisKey="O_PickUpLocationID" OtherKey="PL_ID" Type="PickUpLocation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderItem" Member="OrderItems">
+    <Type Name="OrderItem">
+      <Column Name="OI_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OI_Order" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OI_Seller" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OI_Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OI_UnitPrice" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="OrderItem_Review" Member="Reviews" ThisKey="OI_ID,OI_Order" OtherKey="RV_OrderItem,RV_Order" Type="Review" />
+      <Association Name="OrderItem_SellerPayout" Member="SellerPayouts" ThisKey="OI_ID,OI_Order" OtherKey="SP_OrderItem,SP_Order" Type="SellerPayout" />
+      <Association Name="Product_OrderItem" Member="Product" ThisKey="OI_ID" OtherKey="P_ID" Type="Product" IsForeignKey="true" />
+      <Association Name="Order_OrderItem" Member="Order" ThisKey="OI_Order" OtherKey="O_ID" Type="Order" IsForeignKey="true" />
+      <Association Name="Seller_OrderItem" Member="Seller" ThisKey="OI_Seller" OtherKey="S_ID" Type="Seller" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Payment" Member="Payments">
+    <Type Name="Payment">
+      <Column Name="PM_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PM_Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PM_Amount" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PM_Provider" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="PM_Status" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="PM_DatePaid" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="PM_DateRefunded" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Payment_Refund" Member="Refunds" ThisKey="PM_ID" OtherKey="R_PaymentID" Type="Refund" />
+      <Association Name="Payment_Invoice" Member="Invoices" ThisKey="PM_ID" OtherKey="INV_PaymentID" Type="Invoice" />
+      <Association Name="Order_Payment" Member="Order" ThisKey="PM_Order" OtherKey="O_ID" Type="Order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Refund" Member="Refunds">
+    <Type Name="Refund">
+      <Column Name="R_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="R_PaymentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="R_OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="R_Amount" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="R_Reason" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="R_Method" Type="System.String" DbType="VarChar(7) NOT NULL" CanBeNull="false" />
+      <Column Name="R_Status" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="R_DateRequested" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="R_DateProcessed" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Order_Refund" Member="Order" ThisKey="R_OrderID" OtherKey="O_ID" Type="Order" IsForeignKey="true" />
+      <Association Name="Payment_Refund" Member="Payment" ThisKey="R_PaymentID" OtherKey="PM_ID" Type="Payment" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Review" Member="Reviews">
+    <Type Name="Review">
+      <Column Name="RV_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RV_Reviewer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RV_Seller" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RV_Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RV_OrderItem" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RV_Rating" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RV_Comment" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="RV_DateReviewed" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="OrderItem_Review" Member="OrderItem" ThisKey="RV_OrderItem,RV_Order" OtherKey="OI_ID,OI_Order" Type="OrderItem" IsForeignKey="true" />
+      <Association Name="Buyer_Review" Member="Buyer" ThisKey="RV_Reviewer" OtherKey="B_ID" Type="Buyer" IsForeignKey="true" />
+      <Association Name="Seller_Review" Member="Seller" ThisKey="RV_Seller" OtherKey="S_ID" Type="Seller" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SellerPayout" Member="SellerPayouts">
+    <Type Name="SellerPayout">
+      <Column Name="SP_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SP_OrderItem" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SP_Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SP_Seller" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SP_Amount" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SP_Commision" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SP_NetAmount" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SP_Status" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SP_DatePaid" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="SP_DateRefunded" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Seller_SellerPayout" Member="Seller" ThisKey="SP_Seller" OtherKey="S_ID" Type="Seller" IsForeignKey="true" />
+      <Association Name="OrderItem_SellerPayout" Member="OrderItem" ThisKey="SP_OrderItem,SP_Order" OtherKey="OI_ID,OI_Order" Type="OrderItem" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Invoice" Member="Invoices">
+    <Type Name="Invoice">
+      <Column Name="INV_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="INV_OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="INV_PaymentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="INV_BuyerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="INV_DateIssued" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Buyer_Invoice" Member="Buyer" ThisKey="INV_BuyerID" OtherKey="B_ID" Type="Buyer" IsForeignKey="true" />
+      <Association Name="Order_Invoice" Member="Order" ThisKey="INV_OrderID" OtherKey="O_ID" Type="Order" IsForeignKey="true" />
+      <Association Name="Payment_Invoice" Member="Payment" ThisKey="INV_PaymentID" OtherKey="PM_ID" Type="Payment" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Admin" Member="Admins">
+    <Type Name="Admin">
+      <Column Name="A_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="A_Role" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Admin_AdminAction" Member="AdminActions" ThisKey="A_ID" OtherKey="AA_Admin" Type="AdminAction" />
+      <Association Name="StandardUser_Admin" Member="StandardUser" ThisKey="A_ID" OtherKey="U_ID" Type="StandardUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdminActions" Member="AdminActions">
+    <Type Name="AdminAction">
+      <Column Name="AA_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AA_Admin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AA_Target" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="AA_ActionType" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="AA_Notes" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DatePerformed" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Admin_AdminAction" Member="Admin" ThisKey="AA_Admin" OtherKey="A_ID" Type="Admin" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UniImage" Member="UniImages">
+    <Type Name="UniImage">
+      <Column Name="IMG_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IMG_Description" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IMG_Path" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="IMG_Size" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="IMG_TimeStamp" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="UniImage_Seller" Member="Sellers" ThisKey="IMG_ID" OtherKey="S_ProfilePic" Type="Seller" />
+      <Association Name="UniImage_Product" Member="Products" ThisKey="IMG_ID" OtherKey="P_Image" Type="Product" />
+    </Type>
+  </Table>
+</Database>

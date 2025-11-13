@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UniLoopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="A_ID" />
+    </Key>
+    <Property Name="A_ID" Type="int" Nullable="false" />
+    <Property Name="A_Role" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Buyer">
+    <Key>
+      <PropertyRef Name="B_ID" />
+    </Key>
+    <Property Name="B_ID" Type="int" Nullable="false" />
+    <Property Name="B_FavLocation" Type="varchar" MaxLength="100" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FavouriteBuyerLocation">
+    <Key>
+      <PropertyRef Name="FBL_ID" />
+    </Key>
+    <Property Name="FBL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FBL_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FBL_BuyerID" Type="int" Nullable="false" />
+    <Property Name="FBL_PickUpLocationID" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FilterCategory">
+    <Key>
+      <PropertyRef Name="C_ID" />
+    </Key>
+    <Property Name="C_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="C_Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="C_ParentCategoryID" Type="int" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="I_ID" />
+    </Key>
+    <Property Name="I_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="I_Buyer" Type="int" Nullable="false" />
+    <Property Name="I_OrderId" Type="int" Nullable="false" />
+    <Property Name="I_DateGenerated" Type="date" Nullable="false" />
+    <Property Name="I_Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="I_Status" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="O_ID" />
+    </Key>
+    <Property Name="O_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="O_Buyer" Type="int" Nullable="false" />
+    <Property Name="O_PickUpLocationID" Type="int" Nullable="false" />
+    <Property Name="O_TotalPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="O_Status" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="O_DatePlaced" Type="date" Nullable="false" />
+    <Property Name="O_DatePaid" Type="date" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderItem">
+    <Key>
+      <PropertyRef Name="OI_ID" />
+    </Key>
+    <Property Name="OI_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OI_Order" Type="int" Nullable="false" />
+    <Property Name="OI_ProductID" Type="int" Nullable="false" />
+    <Property Name="OI_Seller" Type="int" Nullable="false" />
+    <Property Name="OI_Quantity" Type="int" Nullable="false" />
+    <Property Name="OI_UnitPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PickUpLocation">
+    <Key>
+      <PropertyRef Name="PL_ID" />
+    </Key>
+    <Property Name="PL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PL_CampusName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PL_CampusArea" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PL_CampusPickUpPoint" Type="varchar" MaxLength="100" />
+    <Property Name="PL_Notes" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="P_ID" />
+    </Key>
+    <Property Name="P_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="P_SellerID" Type="int" Nullable="false" />
+    <Property Name="P_CategoryID" Type="int" Nullable="false" />
+    <Property Name="P_Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="P_Description" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="P_QuantityAvailable" Type="int" Nullable="false" />
+    <Property Name="P_BuyerSuggestedPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="P_AdminApprovedPrice" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="P_ProductPic" Type="int" Nullable="false" />
+    <Property Name="P_Status" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="P_DateCreated" Type="date" Nullable="false" />
+    <Property Name="P_DateUpdated" Type="date" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Seller">
+    <Key>
+      <PropertyRef Name="S_ID" />
+    </Key>
+    <Property Name="S_ID" Type="int" Nullable="false" />
+    <Property Name="S_Bio" Type="varchar(max)" />
+    <Property Name="S_Campus" Type="varchar" MaxLength="100" />
+    <Property Name="S_ProfilePic" Type="int" />
+    <Property Name="S_RatingAvg" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+    <Property Name="S_RatingCount" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ShoppingCart">
+    <Key>
+      <PropertyRef Name="SC_ID" />
+    </Key>
+    <Property Name="SC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SC_Buyer" Type="int" Nullable="false" />
+    <Property Name="SC_DateCreated" Type="date" Nullable="false" />
+    <Property Name="SC_DateUpdated" Type="date" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ShoppingCartProduct">
+    <Key>
+      <PropertyRef Name="SCP_CartID" />
+      <PropertyRef Name="SCP_ProductID" />
+    </Key>
+    <Property Name="SCP_CartID" Type="int" Nullable="false" />
+    <Property Name="SCP_ProductID" Type="int" Nullable="false" />
+    <Property Name="SCP_Quantity" Type="int" Nullable="false" />
+    <Property Name="SCP_DateAdded" Type="date" Nullable="false" />
+    <Property Name="SCP_DateRemoved" Type="date" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StandardUser">
+    <Key>
+      <PropertyRef Name="U_ID" />
+    </Key>
+    <Property Name="U_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="U_Title" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="U_FName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="U_LName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="U_UniEmail" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="U_Phone" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="U_Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="U_Status" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="U_DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UniImage">
+    <Key>
+      <PropertyRef Name="IMG_ID" />
+    </Key>
+    <Property Name="IMG_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IMG_Description" Type="varchar" MaxLength="100" />
+    <Property Name="IMG_Path" Type="varchar(max)" Nullable="false" />
+    <Property Name="IMG_TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Wishlist">
+    <Key>
+      <PropertyRef Name="W_ID" />
+    </Key>
+    <Property Name="W_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="W_Buyer" Type="int" Nullable="false" />
+    <Property Name="W_DateCreated" Type="date" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WishlistItem">
+    <Key>
+      <PropertyRef Name="WI_ID" />
+      <PropertyRef Name="WI_ProductID" />
+    </Key>
+    <Property Name="WI_ID" Type="int" Nullable="false" />
+    <Property Name="WI_ProductID" Type="int" Nullable="false" />
+    <Property Name="WI_DateAdded" Type="date" Nullable="false" />
+    <Property Name="WI_DateRemoved" Type="date" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Admin__A_ID__45F365D3">
+    <End Role="StandardUser" Type="Self.StandardUser" Multiplicity="1" />
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="StandardUser">
+        <PropertyRef Name="U_ID" />
+      </Principal>
+      <Dependent Role="Admin">
+        <PropertyRef Name="A_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Buyer__B_ID__49C3F6B7">
+    <End Role="StandardUser" Type="Self.StandardUser" Multiplicity="1" />
+    <End Role="Buyer" Type="Self.Buyer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="StandardUser">
+        <PropertyRef Name="U_ID" />
+      </Principal>
+      <Dependent Role="Buyer">
+        <PropertyRef Name="B_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Favourite__FBL_B__72C60C4A">
+    <End Role="Buyer" Type="Self.Buyer" Multiplicity="1" />
+    <End Role="FavouriteBuyerLocation" Type="Self.FavouriteBuyerLocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="B_ID" />
+      </Principal>
+      <Dependent Role="FavouriteBuyerLocation">
+        <PropertyRef Name="FBL_BuyerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Favourite__FBL_P__73BA3083">
+    <End Role="PickUpLocation" Type="Self.PickUpLocation" Multiplicity="1" />
+    <End Role="FavouriteBuyerLocation" Type="Self.FavouriteBuyerLocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PickUpLocation">
+        <PropertyRef Name="PL_ID" />
+      </Principal>
+      <Dependent Role="FavouriteBuyerLocation">
+        <PropertyRef Name="FBL_PickUpLocationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FilterCat__C_Par__412EB0B6">
+    <End Role="FilterCategory" Type="Self.FilterCategory" Multiplicity="0..1" />
+    <End Role="FilterCategory1" Type="Self.FilterCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FilterCategory">
+        <PropertyRef Name="C_ID" />
+      </Principal>
+      <Dependent Role="FilterCategory1">
+        <PropertyRef Name="C_ParentCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Invoice__I_Buyer__3C34F16F">
+    <End Role="Buyer" Type="Self.Buyer" Multiplicity="1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="B_ID" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="I_Buyer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Invoice__I_Order__3D2915A8">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="O_ID" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="I_OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order__O_Buyer__787EE5A0">
+    <End Role="Buyer" Type="Self.Buyer" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="B_ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="O_Buyer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order__O_PickUpL__797309D9">
+    <End Role="PickUpLocation" Type="Self.PickUpLocation" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PickUpLocation">
+        <PropertyRef Name="PL_ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="O_PickUpLocationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderItem__OI_Or__7D439ABD">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="O_ID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OI_Order" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderItem__OI_Pr__7E37BEF6">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="P_ID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OI_ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderItem__OI_Se__7F2BE32F">
+    <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seller">
+        <PropertyRef Name="S_ID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OI_Seller" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__P_Categ__5812160E">
+    <End Role="FilterCategory" Type="Self.FilterCategory" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FilterCategory">
+        <PropertyRef Name="C_ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="P_CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__P_Produ__571DF1D5">
+    <End Role="UniImage" Type="Self.UniImage" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UniImage">
+        <PropertyRef Name="IMG_ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="P_ProductPic" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__P_Selle__5629CD9C">
+    <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seller">
+        <PropertyRef Name="S_ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="P_SellerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Seller__S_ID__5165187F">
+    <End Role="StandardUser" Type="Self.StandardUser" Multiplicity="1" />
+    <End Role="Seller" Type="Self.Seller" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="StandardUser">
+        <PropertyRef Name="U_ID" />
+      </Principal>
+      <Dependent Role="Seller">
+        <PropertyRef Name="S_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Seller__S_Profil__5070F446">
+    <End Role="UniImage" Type="Self.UniImage" Multiplicity="0..1" />
+    <End Role="Seller" Type="Self.Seller" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UniImage">
+        <PropertyRef Name="IMG_ID" />
+      </Principal>
+      <Dependent Role="Seller">
+        <PropertyRef Name="S_ProfilePic" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ShoppingC__SC_Bu__5BE2A6F2">
+    <End Role="Buyer" Type="Self.Buyer" Multiplicity="1" />
+    <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="B_ID" />
+      </Principal>
+      <Dependent Role="ShoppingCart">
+        <PropertyRef Name="SC_Buyer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ShoppingC__SCP_C__5FB337D6">
+    <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="1" />
+    <End Role="ShoppingCartProduct" Type="Self.ShoppingCartProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShoppingCart">
+        <PropertyRef Name="SC_ID" />
+      </Principal>
+      <Dependent Role="ShoppingCartProduct">
+        <PropertyRef Name="SCP_CartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ShoppingC__SCP_P__60A75C0F">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ShoppingCartProduct" Type="Self.ShoppingCartProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="P_ID" />
+      </Principal>
+      <Dependent Role="ShoppingCartProduct">
+        <PropertyRef Name="SCP_ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Wishlist__W_Buye__6477ECF3">
+    <End Role="Buyer" Type="Self.Buyer" Multiplicity="1" />
+    <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="B_ID" />
+      </Principal>
+      <Dependent Role="Wishlist">
+        <PropertyRef Name="W_Buyer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WishlistI__WI_ID__2A164134">
+    <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="1" />
+    <End Role="WishlistItem" Type="Self.WishlistItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wishlist">
+        <PropertyRef Name="W_ID" />
+      </Principal>
+      <Dependent Role="WishlistItem">
+        <PropertyRef Name="WI_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WishlistI__WI_Pr__2B0A656D">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="WishlistItem" Type="Self.WishlistItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="P_ID" />
+      </Principal>
+      <Dependent Role="WishlistItem">
+        <PropertyRef Name="WI_ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UniLoopModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Buyer" EntityType="Self.Buyer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FavouriteBuyerLocation" EntityType="Self.FavouriteBuyerLocation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FilterCategory" EntityType="Self.FilterCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderItem" EntityType="Self.OrderItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PickUpLocation" EntityType="Self.PickUpLocation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShoppingCartProduct" EntityType="Self.ShoppingCartProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StandardUser" EntityType="Self.StandardUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UniImage" EntityType="Self.UniImage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WishlistItem" EntityType="Self.WishlistItem" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Admin__A_ID__45F365D3" Association="Self.FK__Admin__A_ID__45F365D3">
+      <End Role="StandardUser" EntitySet="StandardUser" />
+      <End Role="Admin" EntitySet="Admin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Buyer__B_ID__49C3F6B7" Association="Self.FK__Buyer__B_ID__49C3F6B7">
+      <End Role="StandardUser" EntitySet="StandardUser" />
+      <End Role="Buyer" EntitySet="Buyer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Favourite__FBL_B__72C60C4A" Association="Self.FK__Favourite__FBL_B__72C60C4A">
+      <End Role="Buyer" EntitySet="Buyer" />
+      <End Role="FavouriteBuyerLocation" EntitySet="FavouriteBuyerLocation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Favourite__FBL_P__73BA3083" Association="Self.FK__Favourite__FBL_P__73BA3083">
+      <End Role="PickUpLocation" EntitySet="PickUpLocation" />
+      <End Role="FavouriteBuyerLocation" EntitySet="FavouriteBuyerLocation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FilterCat__C_Par__412EB0B6" Association="Self.FK__FilterCat__C_Par__412EB0B6">
+      <End Role="FilterCategory" EntitySet="FilterCategory" />
+      <End Role="FilterCategory1" EntitySet="FilterCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Invoice__I_Buyer__3C34F16F" Association="Self.FK__Invoice__I_Buyer__3C34F16F">
+      <End Role="Buyer" EntitySet="Buyer" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Invoice__I_Order__3D2915A8" Association="Self.FK__Invoice__I_Order__3D2915A8">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order__O_Buyer__787EE5A0" Association="Self.FK__Order__O_Buyer__787EE5A0">
+      <End Role="Buyer" EntitySet="Buyer" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order__O_PickUpL__797309D9" Association="Self.FK__Order__O_PickUpL__797309D9">
+      <End Role="PickUpLocation" EntitySet="PickUpLocation" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderItem__OI_Or__7D439ABD" Association="Self.FK__OrderItem__OI_Or__7D439ABD">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderItem" EntitySet="OrderItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderItem__OI_Pr__7E37BEF6" Association="Self.FK__OrderItem__OI_Pr__7E37BEF6">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OrderItem" EntitySet="OrderItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderItem__OI_Se__7F2BE32F" Association="Self.FK__OrderItem__OI_Se__7F2BE32F">
+      <End Role="Seller" EntitySet="Seller" />
+      <End Role="OrderItem" EntitySet="OrderItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__P_Categ__5812160E" Association="Self.FK__Product__P_Categ__5812160E">
+      <End Role="FilterCategory" EntitySet="FilterCategory" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__P_Produ__571DF1D5" Association="Self.FK__Product__P_Produ__571DF1D5">
+      <End Role="UniImage" EntitySet="UniImage" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__P_Selle__5629CD9C" Association="Self.FK__Product__P_Selle__5629CD9C">
+      <End Role="Seller" EntitySet="Seller" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Seller__S_ID__5165187F" Association="Self.FK__Seller__S_ID__5165187F">
+      <End Role="StandardUser" EntitySet="StandardUser" />
+      <End Role="Seller" EntitySet="Seller" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Seller__S_Profil__5070F446" Association="Self.FK__Seller__S_Profil__5070F446">
+      <End Role="UniImage" EntitySet="UniImage" />
+      <End Role="Seller" EntitySet="Seller" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ShoppingC__SC_Bu__5BE2A6F2" Association="Self.FK__ShoppingC__SC_Bu__5BE2A6F2">
+      <End Role="Buyer" EntitySet="Buyer" />
+      <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ShoppingC__SCP_C__5FB337D6" Association="Self.FK__ShoppingC__SCP_C__5FB337D6">
+      <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+      <End Role="ShoppingCartProduct" EntitySet="ShoppingCartProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ShoppingC__SCP_P__60A75C0F" Association="Self.FK__ShoppingC__SCP_P__60A75C0F">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ShoppingCartProduct" EntitySet="ShoppingCartProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Wishlist__W_Buye__6477ECF3" Association="Self.FK__Wishlist__W_Buye__6477ECF3">
+      <End Role="Buyer" EntitySet="Buyer" />
+      <End Role="Wishlist" EntitySet="Wishlist" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WishlistI__WI_ID__2A164134" Association="Self.FK__WishlistI__WI_ID__2A164134">
+      <End Role="Wishlist" EntitySet="Wishlist" />
+      <End Role="WishlistItem" EntitySet="WishlistItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WishlistI__WI_Pr__2B0A656D" Association="Self.FK__WishlistI__WI_Pr__2B0A656D">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="WishlistItem" EntitySet="WishlistItem" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

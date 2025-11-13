@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UniLoopModelStoreContainer" CdmEntityContainer="UniLoopEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="UniLoopModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+          <ScalarProperty Name="A_Role" ColumnName="A_Role" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Buyers">
+      <EntityTypeMapping TypeName="UniLoopModel.Buyer">
+        <MappingFragment StoreEntitySet="Buyer">
+          <ScalarProperty Name="B_ID" ColumnName="B_ID" />
+          <ScalarProperty Name="B_FavLocation" ColumnName="B_FavLocation" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FilterCategories">
+      <EntityTypeMapping TypeName="UniLoopModel.FilterCategory">
+        <MappingFragment StoreEntitySet="FilterCategory">
+          <ScalarProperty Name="C_ID" ColumnName="C_ID" />
+          <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+          <ScalarProperty Name="C_ParentCategoryID" ColumnName="C_ParentCategoryID" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="UniLoopModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="P_ID" ColumnName="P_ID" />
+          <ScalarProperty Name="P_SellerID" ColumnName="P_SellerID" />
+          <ScalarProperty Name="P_CategoryID" ColumnName="P_CategoryID" />
+          <ScalarProperty Name="P_Name" ColumnName="P_Name" />
+          <ScalarProperty Name="P_Description" ColumnName="P_Description" />
+          <ScalarProperty Name="P_QuantityAvailable" ColumnName="P_QuantityAvailable" />
+          <ScalarProperty Name="P_BuyerSuggestedPrice" ColumnName="P_BuyerSuggestedPrice" />
+          <ScalarProperty Name="P_AdminApprovedPrice" ColumnName="P_AdminApprovedPrice" />
+          <ScalarProperty Name="P_ProductPic" ColumnName="P_ProductPic" />
+          <ScalarProperty Name="P_Status" ColumnName="P_Status" />
+          <ScalarProperty Name="P_DateCreated" ColumnName="P_DateCreated" />
+          <ScalarProperty Name="P_DateUpdated" ColumnName="P_DateUpdated" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sellers">
+      <EntityTypeMapping TypeName="UniLoopModel.Seller">
+        <MappingFragment StoreEntitySet="Seller">
+          <ScalarProperty Name="S_ID" ColumnName="S_ID" />
+          <ScalarProperty Name="S_Bio" ColumnName="S_Bio" />
+          <ScalarProperty Name="S_Campus" ColumnName="S_Campus" />
+          <ScalarProperty Name="S_ProfilePic" ColumnName="S_ProfilePic" />
+          <ScalarProperty Name="S_RatingAvg" ColumnName="S_RatingAvg" />
+          <ScalarProperty Name="S_RatingCount" ColumnName="S_RatingCount" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShoppingCarts">
+      <EntityTypeMapping TypeName="UniLoopModel.ShoppingCart">
+        <MappingFragment StoreEntitySet="ShoppingCart">
+          <ScalarProperty Name="SC_ID" ColumnName="SC_ID" />
+          <ScalarProperty Name="SC_Buyer" ColumnName="SC_Buyer" />
+          <ScalarProperty Name="SC_DateCreated" ColumnName="SC_DateCreated" />
+          <ScalarProperty Name="SC_DateUpdated" ColumnName="SC_DateUpdated" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShoppingCartProducts">
+      <EntityTypeMapping TypeName="UniLoopModel.ShoppingCartProduct">
+        <MappingFragment StoreEntitySet="ShoppingCartProduct">
+          <ScalarProperty Name="SCP_CartID" ColumnName="SCP_CartID" />
+          <ScalarProperty Name="SCP_ProductID" ColumnName="SCP_ProductID" />
+          <ScalarProperty Name="SCP_Quantity" ColumnName="SCP_Quantity" />
+          <ScalarProperty Name="SCP_DateAdded" ColumnName="SCP_DateAdded" />
+          <ScalarProperty Name="SCP_DateRemoved" ColumnName="SCP_DateRemoved" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StandardUsers">
+      <EntityTypeMapping TypeName="UniLoopModel.StandardUser">
+        <MappingFragment StoreEntitySet="StandardUser">
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="U_Title" ColumnName="U_Title" />
+          <ScalarProperty Name="U_FName" ColumnName="U_FName" />
+          <ScalarProperty Name="U_LName" ColumnName="U_LName" />
+          <ScalarProperty Name="U_UniEmail" ColumnName="U_UniEmail" />
+          <ScalarProperty Name="U_Phone" ColumnName="U_Phone" />
+          <ScalarProperty Name="U_Password" ColumnName="U_Password" />
+          <ScalarProperty Name="U_Status" ColumnName="U_Status" />
+          <ScalarProperty Name="U_DateCreated" ColumnName="U_DateCreated" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UniImages">
+      <EntityTypeMapping TypeName="UniLoopModel.UniImage">
+        <MappingFragment StoreEntitySet="UniImage">
+          <ScalarProperty Name="IMG_ID" ColumnName="IMG_ID" />
+          <ScalarProperty Name="IMG_Description" ColumnName="IMG_Description" />
+          <ScalarProperty Name="IMG_Path" ColumnName="IMG_Path" />
+          <ScalarProperty Name="IMG_TimeStamp" ColumnName="IMG_TimeStamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wishlists">
+      <EntityTypeMapping TypeName="UniLoopModel.Wishlist">
+        <MappingFragment StoreEntitySet="Wishlist">
+          <ScalarProperty Name="W_ID" ColumnName="W_ID" />
+          <ScalarProperty Name="W_Buyer" ColumnName="W_Buyer" />
+          <ScalarProperty Name="W_DateCreated" ColumnName="W_DateCreated" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FavouriteBuyerLocations">
+      <EntityTypeMapping TypeName="UniLoopModel.FavouriteBuyerLocation">
+        <MappingFragment StoreEntitySet="FavouriteBuyerLocation">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="FBL_PickUpLocationID" ColumnName="FBL_PickUpLocationID" />
+          <ScalarProperty Name="FBL_BuyerID" ColumnName="FBL_BuyerID" />
+          <ScalarProperty Name="FBL_Name" ColumnName="FBL_Name" />
+          <ScalarProperty Name="FBL_ID" ColumnName="FBL_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="UniLoopModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="O_DatePaid" ColumnName="O_DatePaid" />
+          <ScalarProperty Name="O_DatePlaced" ColumnName="O_DatePlaced" />
+          <ScalarProperty Name="O_Status" ColumnName="O_Status" />
+          <ScalarProperty Name="O_TotalPrice" ColumnName="O_TotalPrice" />
+          <ScalarProperty Name="O_PickUpLocationID" ColumnName="O_PickUpLocationID" />
+          <ScalarProperty Name="O_Buyer" ColumnName="O_Buyer" />
+          <ScalarProperty Name="O_ID" ColumnName="O_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderItems">
+      <EntityTypeMapping TypeName="UniLoopModel.OrderItem">
+        <MappingFragment StoreEntitySet="OrderItem">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="OI_UnitPrice" ColumnName="OI_UnitPrice" />
+          <ScalarProperty Name="OI_Quantity" ColumnName="OI_Quantity" />
+          <ScalarProperty Name="OI_Seller" ColumnName="OI_Seller" />
+          <ScalarProperty Name="OI_ProductID" ColumnName="OI_ProductID" />
+          <ScalarProperty Name="OI_Order" ColumnName="OI_Order" />
+          <ScalarProperty Name="OI_ID" ColumnName="OI_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PickUpLocations">
+      <EntityTypeMapping TypeName="UniLoopModel.PickUpLocation">
+        <MappingFragment StoreEntitySet="PickUpLocation">
+          <ScalarProperty Name="PL_Notes" ColumnName="PL_Notes" />
+          <ScalarProperty Name="PL_CampusPickUpPoint" ColumnName="PL_CampusPickUpPoint" />
+          <ScalarProperty Name="PL_CampusArea" ColumnName="PL_CampusArea" />
+          <ScalarProperty Name="PL_CampusName" ColumnName="PL_CampusName" />
+          <ScalarProperty Name="PL_ID" ColumnName="PL_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WishlistItems">
+      <EntityTypeMapping TypeName="UniLoopModel.WishlistItem">
+        <MappingFragment StoreEntitySet="WishlistItem">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="WI_DateRemoved" ColumnName="WI_DateRemoved" />
+          <ScalarProperty Name="WI_DateAdded" ColumnName="WI_DateAdded" />
+          <ScalarProperty Name="WI_ProductID" ColumnName="WI_ProductID" />
+          <ScalarProperty Name="WI_ID" ColumnName="WI_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="UniLoopModel.Invoice">
+        <MappingFragment StoreEntitySet="Invoice">
+          <ScalarProperty Name="I_Status" ColumnName="I_Status" />
+          <ScalarProperty Name="I_Total" ColumnName="I_Total" />
+          <ScalarProperty Name="I_DateGenerated" ColumnName="I_DateGenerated" />
+          <ScalarProperty Name="I_OrderId" ColumnName="I_OrderId" />
+          <ScalarProperty Name="I_Buyer" ColumnName="I_Buyer" />
+          <ScalarProperty Name="I_ID" ColumnName="I_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

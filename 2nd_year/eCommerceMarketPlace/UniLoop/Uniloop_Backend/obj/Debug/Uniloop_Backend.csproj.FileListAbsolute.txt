@@ -1,0 +1,11 @@
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\bin\Uniloop_Backend.dll.config
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\bin\Uniloop_Backend.dll
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\bin\Uniloop_Backend.pdb
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\bin\EntityFramework.dll
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\bin\EntityFramework.SqlServer.dll
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\bin\EntityFramework.xml
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\bin\EntityFramework.SqlServer.xml
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\obj\Debug\Uniloop_Backend.csproj.CoreCompileInputs.cache
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\obj\Debug\Uniloop_Backend.csproj.CopyComplete
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\obj\Debug\Uniloop_Backend.dll
+C:\Users\soclu\Desktop\Uni\Uniloop_Backend\obj\Debug\Uniloop_Backend.pdb
